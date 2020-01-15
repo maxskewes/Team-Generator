@@ -6,6 +6,7 @@ const writeFileAsync = util.promisify(fs.writeFile);
 const readFileAsync = util.promisify(fs.readFile);
 const generateHtml = require("./output/generateHtml");
 
+
 //Employee Prompts
     // promptEmployee = () => {
     //     return inquirer.prompt([
