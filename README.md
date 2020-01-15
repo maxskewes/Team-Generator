@@ -7,10 +7,10 @@ This application allows employers to quickly access information on their team. U
 Inquirer ^7.0.1
 
 ### Built with
-[Node.js] (https://nodejs.org/en/)
-[Javascript] (https://www.javascript.com/)
-[HTML] (https://html.com/)
-[Inquirer.js] (https://www.npmjs.com/package/inquirer)
+[Node.js](https://nodejs.org/en/)
+[Javascript](https://www.javascript.com/)
+[HTML](https://html.com/)
+[Inquirer.js](https://www.npmjs.com/package/inquirer)
 
 ### Author
 Maxwell Countryman Skewes
