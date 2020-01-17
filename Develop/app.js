@@ -4,11 +4,11 @@ const path = require("path");
 const util = require("util");
 const writeFileAsync = util.promisify(fs.writeFile);
 const readFileAsync = util.promisify(fs.readFile);
-const generateHtml = require("./generateHtml");
-const Employee = require("./Employee");
-const Manager = require("./Manager");
-const Engineer = require("./Engineer");
-const Intern = require("./Intern");
+const generateHtml = require("./output/generateHtml");
+const Employee = require("./lib/Employee");
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
 
 //Manager Prompts
 promptManager = () => {
@@ -32,82 +32,10 @@ promptManager = () => {
             type: "input",
             name: "officeNumber",
             message: "Enter your office Number."
-        }
+        },
     ]);
+    
 };
-
-// //Employee Prompts
-// promptEmployee = () => {
-//         return inquirer.prompt([
-//             {
-//                 type: "input",
-//                 name: "name",
-//                 message: "Enter the name of your employee."
-//             },
-//             {
-//                 type: "input",
-//                 name: "id",
-//                 message: "Enter their ID."
-//             },
-//             {
-//                 type: "input",
-//                 name: "email",
-//                 message: "Enter their email."
-//             }
-//         ]);
-//     };
- 
-//     //Engineer Prompts
-//     promptEngineer = () => {
-//         return inquirer.prompt([
-//             {
-//                 type: "input",
-//                 name: "name",
-//                 message: "Enter the name of your engineer."
-//             },
-//             {
-//                 type: "input",
-//                 name: "id",
-//                 message: "Enter their ID."
-//             },
-//             {
-//                 type: "input",
-//                 name: "email",
-//                 message: "Enter their email."
-//             },
-//             {
-//                 type: "input",
-//                 name: "github",
-//                 message: "Enter their GitHub username."
-//             }
-//         ])
-//     };
-
-//     //Intern Prompts
-//     promptIntern = () => {
-//         return inquirer.prompt([
-//             {
-//                 type: "input",
-//                 name: "name",
-//                 message: "Now enter the name of your intern."
-//             },
-//             {
-//                 type: "input",
-//                 name: "id",
-//                 message: "Enter their ID."
-//             },
-//             {
-//                 type: "input",
-//                 name: "email",
-//                 message: "Enter their email."
-//             },
-//             {
-//                 type: "input",
-//                 name: "school",
-//                 message: "Enter the school they attended."
-//             }
-//         ])
-//     };
 
 promptManager()
 .then(function(manager) {
@@ -116,15 +44,95 @@ console.log("prompt manager done")
     const managerId = manager.id;
     const managerEmail = manager.email;
     const managerOfficeNumber = manager.officeNumber;
-    //add employeeObj
     const managerObj = {
         name: managerName, 
         id: managerId, 
         email: managerEmail, 
-        //add employee key
-        officeNumber: managerOfficeNumber
+        officeNumber: managerOfficeNumber,
     }
+    const html = generateHtml(managerObj)
+    fs.writeFileSync("index.html", html)
+    console.log(html) 
+
+////////////CANNOT FIGURE OUT HOW TO GET THESE PROMPTS TO PROMPT////////////////
+// promptIntern = () => {
+//     return inquirer.prompt([
+//         {
+//             type: "input",
+//             name: "name",
+//             message: "Now enter the name of your intern."
+//         },
+//         {
+//             type: "input",
+//             name: "id",
+//             message: "Enter their ID."
+//         },
+//         {
+//             type: "input",
+//             name: "email",
+//             message: "Enter their email."
+//         },
+//         {
+//             type: "input",
+//             name: "school",
+//             message: "Enter the school they attended."
+//         }
+//     ])
+// };
+
+//Intern Prompts
+
+
+// // //Employee Prompts
+// // promptEmployee = () => {
+// //         return inquirer.prompt([
+// //             {
+// //                 type: "input",
+// //                 name: "name",
+// //                 message: "Enter the name of your employee."
+// //             },
+// //             {
+// //                 type: "input",
+// //                 name: "id",
+// //                 message: "Enter their ID."
+// //             },
+// //             {
+// //                 type: "input",
+// //                 name: "email",
+// //                 message: "Enter their email."
+// //             }
+// //         ]);
+// //     };
+ 
+// //     //Engineer Prompts
+// //     promptEngineer = () => {
+// //         return inquirer.prompt([
+// //             {
+// //                 type: "input",
+// //                 name: "name",
+// //                 message: "Enter the name of your engineer."
+// //             },
+// //             {
+// //                 type: "input",
+// //                 name: "id",
+// //                 message: "Enter their ID."
+// //             },
+// //             {
+// //                 type: "input",
+// //                 name: "email",
+// //                 message: "Enter their email."
+// //             },
+// //             {
+// //                 type: "input",
+// //                 name: "github",
+//                 message: "Enter their GitHub username."
+//             }
+//         ])
+//     };
+
     
+
+
 // promptEmployee()
 // .then(function(employee) {
 // console.log("prompt employee done")
@@ -188,9 +196,6 @@ console.log("prompt manager done")
 
 console.log(managerObj)
 //use generate HTML here
-const html = generateHtml(managerObj)
-console.log(html)
-//
-writeFileAsync
-})
 
+//
+})
