@@ -80,31 +80,22 @@ const generateHTML = (manager, engineerCards, internCards) => {
             <p>${manager.officeNumber}</p>
         </div>
                 
-
-        <div class="card">
-          <div class="container">
-            <h3>$Employee</h3>
-            <h4><b>{employee.name}</b></h4>
-            <p></p>
-            <p></p>
-        </div>
-
         <div class="card">
         <div class="container">
           <h3>Engineer</h3>
-          <h4><b>{engineer.name}</b></h4>
-          <p>{engineer.email}</p>
-          <p>{engineer.id}</p>
-          <p>{engineer.github}</p>
+          <h4><b>${engineer.name}</b></h4>
+          <p>${engineer.email}</p>
+          <p>${engineer.id}</p>
+          <p>${engineer.github}</p>
         </div>
 
         <div class="card">
         <div class="container">
           <h3>Intern</h3>
-          <h4><b>{intern.name</b></h4>
-          <p>{intern.email}</p>
-          <p>{intern.id}</p>
-          <p>{intern.school}</p>
+          <h4><b>${intern.name}</b></h4>
+          <p>${intern.email}</p>
+          <p>${intern.id}</p>
+          <p>${intern.school}</p>
         </div>
 
   </body>

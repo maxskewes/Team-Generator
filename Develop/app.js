@@ -5,12 +5,34 @@ const util = require("util");
 const writeFileAsync = util.promisify(fs.writeFile);
 const readFileAsync = util.promisify(fs.readFile);
 const generateHtml = require("./output/generateHtml");
-const Employee = require("./lib/Employee");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 
-//Manager Prompts
+//Initial Prompt
+function menu() {
+    inquirer.prompt({
+       type: "list",
+       name: "choices",
+       message: "What would you like to do?",
+       choices: ["Add a manager", "Add an intern", "Add an engineer", "Exit and write HTML"]
+    }).then(answers => {
+        if (answers.choices === "Add a manager") {
+            promptManager()
+        };
+        if (answers.choices === "Add an intern") {
+            promptIntern()
+        };
+        if (answers.choices === "Add an engineer")  {
+            promptEngineer() 
+        };
+        if (answers.choices === "Exit and write HTML")  {
+            exit()
+        };
+    });
+};
+
+//Manager Questions
 promptManager = () => {
     return inquirer.prompt([
         {
@@ -33,169 +55,88 @@ promptManager = () => {
             name: "officeNumber",
             message: "Enter your office Number."
         },
-    ]);
-    
+    ]).then(answers => {
+        let managerHtml = `<div class="card"><div class="container"><h3>Manager</h3><h4><b>${answers.name}</b></h4><p>${answers.email}</p><p>${answers.officeNumber}</p></div>`;
+        
+            fs.appendFile("index.html", managerHtml, (err) => {
+                if (err) throw err;
+                console.log("manager added");
+                menu();
+            });
+        });          
 };
 
-promptManager()
-.then(function(manager) {
-console.log("prompt manager done")
-    const managerName = manager.name;
-    const managerId = manager.id;
-    const managerEmail = manager.email;
-    const managerOfficeNumber = manager.officeNumber;
-    const managerObj = {
-        name: managerName, 
-        id: managerId, 
-        email: managerEmail, 
-        officeNumber: managerOfficeNumber,
-    }
-    const html = generateHtml(managerObj)
-    fs.writeFileSync("index.html", html)
-    console.log(html) 
+//Intern Questions
+promptIntern = () => {
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "Please enter the intern's name."
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "Please enter the intern's ID."
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "Please enter the intern's email."
+        },
+        {
+            type: "input",
+            name: "school",
+            message: "Please enter the intern's school."
+        },
+    ]).then(answers => {
+        let internHtml = `<div class="card"><div class="container"><h3>Intern</h3><h4><b>${answers.name}</b></h4><p>${answers.id}</p></h4><p>${answers.email}</p><p>${answers.school}</p></div>`;
+        fs.appendFile("./index.html", internHtml, 'utf8', (err) => {
+            if (err) throw err;
+            console.log("intern added");
+            menu();
+        });
+    });        
+};
 
-////////////CANNOT FIGURE OUT HOW TO GET THESE PROMPTS TO PROMPT////////////////
-// promptIntern = () => {
-//     return inquirer.prompt([
-//         {
-//             type: "input",
-//             name: "name",
-//             message: "Now enter the name of your intern."
-//         },
-//         {
-//             type: "input",
-//             name: "id",
-//             message: "Enter their ID."
-//         },
-//         {
-//             type: "input",
-//             name: "email",
-//             message: "Enter their email."
-//         },
-//         {
-//             type: "input",
-//             name: "school",
-//             message: "Enter the school they attended."
-//         }
-//     ])
-// };
-
-//Intern Prompts
-
-
-// // //Employee Prompts
-// // promptEmployee = () => {
-// //         return inquirer.prompt([
-// //             {
-// //                 type: "input",
-// //                 name: "name",
-// //                 message: "Enter the name of your employee."
-// //             },
-// //             {
-// //                 type: "input",
-// //                 name: "id",
-// //                 message: "Enter their ID."
-// //             },
-// //             {
-// //                 type: "input",
-// //                 name: "email",
-// //                 message: "Enter their email."
-// //             }
-// //         ]);
-// //     };
- 
-// //     //Engineer Prompts
-// //     promptEngineer = () => {
-// //         return inquirer.prompt([
-// //             {
-// //                 type: "input",
-// //                 name: "name",
-// //                 message: "Enter the name of your engineer."
-// //             },
-// //             {
-// //                 type: "input",
-// //                 name: "id",
-// //                 message: "Enter their ID."
-// //             },
-// //             {
-// //                 type: "input",
-// //                 name: "email",
-// //                 message: "Enter their email."
-// //             },
-// //             {
-// //                 type: "input",
-// //                 name: "github",
-//                 message: "Enter their GitHub username."
-//             }
-//         ])
-//     };
-
-    
+//Engineer Questions
+promptEngineer = () => {
+    return inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "Please enter the engineer's name."
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "Please enter the engineer's ID."
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "Please enter the engineer's email."
+        },
+        {
+            type: "input",
+            name: "officeNumber",
+            message: "Please enter the engineer's GitHub profile."
+        },
+    ]).then(answers => {
+        let engineerHtml = `<div class="card"><div class="container"><h3>Engineer</h3><h4><b>${answers.name}</b></h4><p>${answers.id}</p></h4><p>${answers.email}</p><p>${answers.github}</p></div>`;
+        
+            fs.appendFile("index.html", engineerHtml, (err) => {
+                if (err) throw err;
+                console.log("engineer added");
+                menu();
+            });
+        });         
+};
 
 
-// promptEmployee()
-// .then(function(employee) {
-// console.log("prompt employee done")
-//     const employeeName = employee.name;
-//     const employeeId = employee.id;
-//     const employeeEmail = employee.email;
-//     const employeeObj = {
-//         name: employeeName, 
-//         id: employeeId, 
-//         email: employeeEmail
-//     }
-// console.log(employeeObj)
-// //generate HTML here
-// var html = generateHtml(employeeObj)
-// console.log(html)
-// //
-// writeFileAsync
-// })
+//Exit and write HTML
+exit = () =>    {
 
-// promptEngineer()
-// .then(function(engineer) {
-// console.log("prompt engineer done")
-//     const engineerName = engineer.name;
-//     const engineerId = engineer.id;
-//     const engineerEmail = engineer.email;
-//     const engineerGithub = engineer.github;
-//     const engineerObj = {
-//         name: engineerName, 
-//         id: engineerId, 
-//         email: engineerEmail,
-//         github = engineerGithub
-//     }
-// console.log(engineerObj)
-// //generate HTML here
-// var html = generateHtml(engineerObj)
-// console.log(html)
-// //
-// writeFileAsync
-// })
+}
 
-// promptIntern()
-// .then(function(intern) {
-// console.log("prompt intern done")
-//     const internName = intern.name;
-//     const ˆnternId = intern.id;
-//     const internEmail = intern.email;
-//     const internSchool = intern.school;
-//     const internObj = {
-//         name: internName, 
-//         id: internId, 
-//         email: internEmail,
-//         school: internSchool
-//     }
-// console.log(engineerObj)
-// //generate HTML here
-// var html = generateHtml(engineerObj)
-// console.log(html)
-// //
-// writeFileAsync
-// })
-
-console.log(managerObj)
-//use generate HTML here
-
-//
-})
+menu();
