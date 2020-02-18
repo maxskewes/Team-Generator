@@ -2,8 +2,8 @@ const inquirer = require("inquirer");
 const fs = require("fs");
 const path = require("path");
 const util = require("util");
-const writeFileAsync = util.promisify(fs.writeFile);
-const readFileAsync = util.promisify(fs.readFile);
+const writeFile = util.promisify(fs.writeFile);
+const readFile = util.promisify(fs.readFile);
 const generateHtml = require("./output/generateHtml");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
@@ -38,7 +38,7 @@ promptManager = () => {
         {
             type: "input",
             name: "name",
-            message: "Hello, manager. Please enter your name."
+            message: "Please enter the manager's name."
         },
         {
             type: "input",
@@ -55,15 +55,14 @@ promptManager = () => {
             name: "officeNumber",
             message: "Enter your office Number."
         },
-    ]).then(answers => {
-        let managerHtml = `<div class="card"><div class="container"><h3>Manager</h3><h4><b>${answers.name}</b></h4><p>${answers.email}</p><p>${answers.officeNumber}</p></div>`;
-        
+    ]).then(manager => {
+      let managerHtml = `<div class="card"><h3><i class="fas fa-teeth-open"></i>&ensp;Manager</h3><h4>${manager.name}</h4><p>${manager.id}</p><p>${manager.email}</p><p>${manager.officeNumber}</p></div>`;
             fs.appendFile("index.html", managerHtml, (err) => {
                 if (err) throw err;
                 console.log("manager added");
                 menu();
-            });
-        });          
+        });
+    });          
 };
 
 //Intern Questions
@@ -89,9 +88,9 @@ promptIntern = () => {
             name: "school",
             message: "Please enter the intern's school."
         },
-    ]).then(answers => {
-        let internHtml = `<div class="card"><div class="container"><h3>Intern</h3><h4><b>${answers.name}</b></h4><p>${answers.id}</p></h4><p>${answers.email}</p><p>${answers.school}</p></div>`;
-        fs.appendFile("./index.html", internHtml, 'utf8', (err) => {
+    ]).then(intern => {
+        let internHtml = `<div class="card"><h3><i class="fas fa-graduation-cap"></i>&ensp;Intern</h3><h4>${intern.name}</h4><p>${intern.id}</p><p>${intern.email}</p><p>${intern.school}</p></div>`;
+        fs.appendFile("index.html", internHtml, 'utf8', (err) => {
             if (err) throw err;
             console.log("intern added");
             menu();
@@ -122,8 +121,8 @@ promptEngineer = () => {
             name: "officeNumber",
             message: "Please enter the engineer's GitHub profile."
         },
-    ]).then(answers => {
-        let engineerHtml = `<div class="card"><div class="container"><h3>Engineer</h3><h4><b>${answers.name}</b></h4><p>${answers.id}</p></h4><p>${answers.email}</p><p>${answers.github}</p></div>`;
+    ]).then(engineer => {
+        let engineerHtml = `<div class="card"><h3><i class="fas fa-pencil-alt"></i>&ensp;Engineer</h3><h4>${engineer.name}</h4><p>${engineer.id}</p><p>${engineer.email}</p><p>${engineer.github}</p></div>`;
         
             fs.appendFile("index.html", engineerHtml, (err) => {
                 if (err) throw err;
@@ -136,7 +135,11 @@ promptEngineer = () => {
 
 //Exit and write HTML
 exit = () =>    {
-
+    let footer = `</div> </html>`;
+    fs.appendFile("index.html", footer, (err) => {
+        if (err) throw err;
+                console.log("html ended");
+    })
 }
 
 menu();
