@@ -1,5 +1,5 @@
 # Employee Summary
-### 2020
+### ©2020
 
 This command-line application allows employers to quickly access information on their team. Users are prompted to enter their name, data and preferences via Node, then the information is converted into an aesthetically pleasing .html file.
 
