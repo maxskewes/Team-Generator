@@ -3,6 +3,16 @@
 
 This application allows employers to quickly access information on their team. Users are prompted in the command-line to enter their name, data and preferences via Node, then the information is converted into an aesthetically pleasing .html file.
 
+## Description
+
+* Node CL application that takes in information about employees and generates an HTML webpage that displays summaries for each person.
+
+* The app will take in one manager for the team and require you to at least add one more employee before you can generate an html.
+
+* You can add either as many engineers or interns as you like.
+
+* The team file will be generated in the output folder of the repo.
+
 ### Install needs
 [Inquirer ^7.0.1](https://www.npmjs.com/package/inquirer)
 
