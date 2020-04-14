@@ -4,7 +4,7 @@
 This application allows employers to quickly access information on their team. Users are prompted in the command-line to enter their name, data and preferences via Node, then the information is converted into an aesthetically pleasing .html file.
 
 ### Install needs
-Inquirer ^7.0.1
+[Inquirer ^7.0.1](https://www.npmjs.com/package/inquirer)
 
 ## INSTALLATION INSTRUCTIONS
 Install the required modules by typing "npm install" in the containing folder using your code editor terminal.
