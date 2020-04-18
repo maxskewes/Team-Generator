@@ -3,7 +3,7 @@
 
 This application allows employers to quickly access information on their team. Users are prompted in the command-line to enter their name, data and preferences via Node, then the information is converted into an aesthetically pleasing .html file.
 
-![Alt text](/readmeTeamGenerator.png?raw=true "HTMLimage")
+![Alt text](./readmeTeamGenerator.png?raw=true "AppImage")
 
 ## Description
 
