@@ -3,6 +3,8 @@
 
 This application allows employers to quickly access information on their team. Users are prompted in the command-line to enter their name, data and preferences via Node, then the information is converted into an aesthetically pleasing .html file.
 
+![Alt text](./readmeTeamGenerator.png?raw=true "HTMLimage")
+
 ## Description
 
 * Node CL application that takes in information about employees and generates an HTML webpage that displays summaries for each person.
